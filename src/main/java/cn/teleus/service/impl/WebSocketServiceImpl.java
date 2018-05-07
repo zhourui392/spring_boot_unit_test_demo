@@ -3,7 +3,7 @@ package cn.teleus.service.impl;
 import cn.teleus.common.lang.Strings;
 import cn.teleus.data.ServerNameInfo;
 import cn.teleus.data.TokenWithMaId;
-import cn.teleus.handler.ConnectMessageEventHandler;
+import cn.teleus.handler.MsgEventHandler;
 import cn.teleus.service.WebSocketService;
 import com.corundumstudio.socketio.SocketIOClient;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class WebSocketServiceImpl implements WebSocketService {
         if (Strings.isNotBlank(maId)){
             String token = tokenWithMaId.get(maId);
             if (Strings.isNotBlank(token)){
-                SocketIOClient session = ConnectMessageEventHandler.clientMap.get(token);
+                SocketIOClient session = MsgEventHandler.clientMap.get(token);
                 if (session != null){
                     ServerNameInfo serverNameInfo = ServerNameInfo.getByName("dev");
                     session.sendEvent("checkNetWork",serverNameInfo);
