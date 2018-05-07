@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.teleus.net.mapper.NetCheckMapper" >
+  <resultMap id="BaseResultMap" type="cn.teleus.net.entity.NetCheck" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="eboxSN" property="eboxSN" jdbcType="VARCHAR" />
+    <result column="serverName" property="serverName" jdbcType="VARCHAR" />
+    <result column="bandWidth" property="bandWidth" jdbcType="CHAR" />
+    <result column="netShake" property="netShake" jdbcType="VARCHAR" />
+    <result column="checkType" property="checkType" jdbcType="TINYINT" />
+    <result column="checkTime" property="checkTime" jdbcType="TIMESTAMP" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, eboxSN, serverName, bandWidth, netShake, checkType, checkTime, createTime
+  </sql>
+  <sql id="BaseT_Column_List" >
+    t.id, t.eboxSN, t.serverName, t.bandWidth, t.netShake, t.checkType, t.checkTime, 
+    t.createTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_net_check
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_net_check
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.teleus.net.entity.NetCheck" >
+    insert into t_net_check (id, eboxSN, serverName, 
+      bandWidth, netShake, checkType, 
+      checkTime, createTime)
+    values (#{id,jdbcType=INTEGER}, #{eboxSN,jdbcType=VARCHAR}, #{serverName,jdbcType=VARCHAR}, 
+      #{bandWidth,jdbcType=CHAR}, #{netShake,jdbcType=VARCHAR}, #{checkType,jdbcType=TINYINT}, 
+      #{checkTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.teleus.net.entity.NetCheck" >
+    insert into t_net_check
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="eboxSN != null" >
+        eboxSN,
+      </if>
+      <if test="serverName != null" >
+        serverName,
+      </if>
+      <if test="bandWidth != null" >
+        bandWidth,
+      </if>
+      <if test="netShake != null" >
+        netShake,
+      </if>
+      <if test="checkType != null" >
+        checkType,
+      </if>
+      <if test="checkTime != null" >
+        checkTime,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="eboxSN != null" >
+        #{eboxSN,jdbcType=VARCHAR},
+      </if>
+      <if test="serverName != null" >
+        #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="bandWidth != null" >
+        #{bandWidth,jdbcType=CHAR},
+      </if>
+      <if test="netShake != null" >
+        #{netShake,jdbcType=VARCHAR},
+      </if>
+      <if test="checkType != null" >
+        #{checkType,jdbcType=TINYINT},
+      </if>
+      <if test="checkTime != null" >
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.teleus.net.entity.NetCheck" >
+    update t_net_check
+    <set >
+      <if test="eboxSN != null" >
+        eboxSN = #{eboxSN,jdbcType=VARCHAR},
+      </if>
+      <if test="serverName != null" >
+        serverName = #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="bandWidth != null" >
+        bandWidth = #{bandWidth,jdbcType=CHAR},
+      </if>
+      <if test="netShake != null" >
+        netShake = #{netShake,jdbcType=VARCHAR},
+      </if>
+      <if test="checkType != null" >
+        checkType = #{checkType,jdbcType=TINYINT},
+      </if>
+      <if test="checkTime != null" >
+        checkTime = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.teleus.net.entity.NetCheck" >
+    update t_net_check
+    set eboxSN = #{eboxSN,jdbcType=VARCHAR},
+      serverName = #{serverName,jdbcType=VARCHAR},
+      bandWidth = #{bandWidth,jdbcType=CHAR},
+      netShake = #{netShake,jdbcType=VARCHAR},
+      checkType = #{checkType,jdbcType=TINYINT},
+      checkTime = #{checkTime,jdbcType=TIMESTAMP},
+      createTime = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

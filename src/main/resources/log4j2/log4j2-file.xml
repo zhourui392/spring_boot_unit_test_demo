@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="PATTERN">%d %p [%t] %C{1} (%F:%L) - %m%n</Property>
+        <Property name="LOG_HOME">/home/logs/</Property>
+        <Property name="AppenderRefMethod">rollingFile</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="rollingFile" fileName="${LOG_HOME}/tele.log"
+                     filePattern="${LOG_HOME}/tele-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="${PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true"  interval="1"/>
+            </Policies>
+        </RollingFile>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${PATTERN}"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.springframework" level="INFO"/>
+        <Logger name="org.mybatis" level="ERROR"/>
+        <Logger name="org.apache.http" level="ERROR"/>
+        <Logger name="org.hibernate" level="ERROR"/>
+        <Logger name="com.netflix" level="ERROR"/>
+        <Logger name="io.netty" level="INFO"/>
+        <Root level="debug">
+            <AppenderRef ref="rollingFile"/>
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

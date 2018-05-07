@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.teleus.net.mapper.NetCheckMapper" >
+  <select id="getListByConditions" resultType="cn.teleus.net.entity.NetCheck" >
+    select <include refid="BaseT_Column_List" />
+     from t_net_check t
+     where 1=1
+      <if test="eboxSN != null">
+        and eboxSN = #{eboxSN}
+      </if>
+      <if test="startTime != null">
+        and checkTime >= #{startTime}
+      </if>
+      <if test="endTime != null">
+        and checkTime &lt; #{endTime}
+      </if>
+     order by t.id desc 
+     LIMIT #{limit} OFFSET #{pageOffset}
+  </select>
+  <select id="getCountByConditions" resultType="int" >
+    select count(*) from t_net_check
+     where 1=1
+      <if test="eboxSN != null">
+          and eboxSN = #{eboxSN}
+      </if>
+      <if test="startTime != null">
+          and checkTime >= #{startTime}
+      </if>
+      <if test="endTime != null">
+          and checkTime &lt; #{endTime}
+      </if>
+  </select>
+</mapper>
