@@ -34,10 +34,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @mail zhourui0125@gmail.com
  **/
 @RunWith(SpringRunner.class)
+//进行Controller单元测试的注解
 @WebMvcTest(NetCheckController.class)
 @ActiveProfiles("junit")
 public class NetCheckControllerTest {
-
     @Autowired
     MockMvc mvc;
 
@@ -49,7 +49,6 @@ public class NetCheckControllerTest {
 
     @SpyBean(name = "permissionService")
     PermissionServiceImpl permissionService;
-
 
     /**
      * mapper等不需要依赖的类直接使用MockBean
@@ -77,12 +76,13 @@ public class NetCheckControllerTest {
         given(permissionMapper.hasPermission(netId)).willReturn(false);
 
         this.mvc.perform(get(getNetInfoByIdUrl))
-                .andExpect(status().isOk()).andExpect(result ->{
-                    String response = result.getResponse().getContentAsString();
-                    Root root = JSONObject.parseObject(response,Root.class);
-                    assertEquals(1,root.getStatus().intValue());
-                    assertEquals(noPermission,root.getData().toString());
-                }
+            .andExpect(status().isOk()).andExpect(result ->{
+                String response = result.getResponse()
+                        .getContentAsString();
+                Root root = JSONObject.parseObject(response,Root.class);
+                assertEquals(1,root.getStatus().intValue());
+                assertEquals(noPermission,root.getData().toString());
+            }
         );
     }
 
@@ -94,11 +94,12 @@ public class NetCheckControllerTest {
 
 
         this.mvc.perform(get(getNetInfoByIdUrl))
-                .andExpect(status().isOk()).andExpect(result ->{
-                    String response = result.getResponse().getContentAsString();
-                    Root root = JSONObject.parseObject(response,Root.class);
-                    assertEquals(redisResult,root.getData().toString());
-                }
+            .andExpect(status().isOk()).andExpect(result ->{
+                String response = result.getResponse()
+                        .getContentAsString();
+                Root root = JSONObject.parseObject(response,Root.class);
+                assertEquals(redisResult,root.getData().toString());
+            }
         );
     }
 
@@ -107,14 +108,16 @@ public class NetCheckControllerTest {
         //data
         given(permissionMapper.hasPermission(netId)).willReturn(true);
         given(redisService.getById(netId)).willReturn(null);
-        given(netCheckMapper.selectByPrimaryKey(netId)).willReturn(dbResult);
+        given(netCheckMapper.selectByPrimaryKey(netId))
+                .willReturn(dbResult);
 
         this.mvc.perform(get(getNetInfoByIdUrl))
-                .andExpect(status().isOk()).andExpect(result ->{
-                    String response = result.getResponse().getContentAsString();
-                    Root root = JSONObject.parseObject(response,Root.class);
-                    assertEquals(dbResult,root.getData().toString());
-                }
+            .andExpect(status().isOk()).andExpect(result ->{
+                String response = result.getResponse()
+                        .getContentAsString();
+                Root root = JSONObject.parseObject(response,Root.class);
+                assertEquals(dbResult,root.getData().toString());
+            }
         );
     }
 }

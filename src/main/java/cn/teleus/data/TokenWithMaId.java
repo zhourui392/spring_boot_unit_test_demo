@@ -30,33 +30,11 @@ public class TokenWithMaId {
             tokenMap.put(token,maId);
         }
     }
-    public void remove(String maId){
-        maId = Strings.toLowerCase(maId);
-        String token = maIdMap.remove(maId);
-        if (token != null){
-            tokenMap.remove(token);
-        }
-    }
-
     public String get(String maId){
         if (maId == null){
             return null;
         }
         maId = Strings.toLowerCase(maId);
         return maIdMap.get(maId);
-    }
-
-    public List<String> getAllMaId() {
-        List<String> maIds = new ArrayList<>();
-        maIdMap.keySet().forEach(maId -> maIds.add(maId));
-        return maIds;
-    }
-
-    public void removeByToken(String token) {
-        String maId = tokenMap.remove(token);
-        if (maId != null){
-            maId = Strings.toLowerCase(maId);
-            maIdMap.remove(maId);
-        }
     }
 }
